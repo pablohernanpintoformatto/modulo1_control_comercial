@@ -1,0 +1,67 @@
+Cliente:
+id_cliente
+nombre_cliente
+tipo_cliente
+
+
+Usuario:
+id_usuario
+nombre
+correo
+rut
+email
+telefono
+area_trabajo
+privilegio
+
+Contactos:
+id_contacto
+nombre_contacto
+cargo
+contacto
+correo
+teléfono
+
+proyecto:
+nombre_proyecto
+estado_comercial
+info 
+cliente (fk_cliente)
+monto_UF
+monto_clp
+tipo_Proyecto
+cant_Inmuebles
+pisos
+torres
+partidas
+tipo_contrato 
+fecha_solicitud_cotización
+fecha_deadline
+tipologia_piloto 
+numeros_piloto 
+fecha_piloto
+fase_proyecto
+fecha_ejec_inicio_obra
+fecha_ejec_fin_obra
+adjuntar_cotizacion_enviada 
+probabilidad_cierre 
+motivo_perdida_proyecto 
+programa
+entrega_cliente 
+adjuntar_planos
+one_pager
+instalación
+despacho
+diseñador_asignado
+pagina_web
+proyecto
+ubicación
+google_maps
+region
+comuna
+Direccion
+fecha_modificacion
+responsable_comercial (fk_usuario_id) 
+modificacion_por (fk_usuario_id)
+gte_proyecto_contacto (fk_contactos)
+adm_obra (fk_contactos)

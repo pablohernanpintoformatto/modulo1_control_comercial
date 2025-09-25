@@ -12,41 +12,9 @@ app.use(express.json());
 
 
 const usersRoutes = require('./routes/usuario.routes.js');
+const dataProyecto = require('./routes/dataProyecto.routes.js')
 app.use('/api', usersRoutes); // accedés a /api/users
-
-const SECRET_KEY = process.env.JWT_SECRET || 'secreto_super_seguro'; // ideal en .env
-
-
-
-// Ruta para registrar un usuario (solo para pruebas, puedes eliminarla luego)
-app.post('/api/register', async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    await pool.query('INSERT INTO users (email, password) VALUES ($1, $2)', [email, hashedPassword]);
-    res.status(201).json({ message: 'Usuario registrado' });
-  } catch (err) {
-    res.status(500).json({ error: 'Error al registrar', details: err.message });
-  }
-});
-
-function verifyToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // Bearer <token>
-
-  if (!token) return res.status(401).json({ message: 'Token requerido' });
-
-  jwt.verify(token, SECRET_KEY, (err, user) => {
-    if (err) return res.status(403).json({ message: 'Token inválido' });
-    req.user = user;
-    next();
-  });
-}
-
-// Ejemplo de ruta protegida
-app.get('/api/protegida', verifyToken, (req, res) => {
-  res.json({ message: 'Ruta protegida accedida correctamente', user: req.user });
-});
+app.use('/api', dataProyecto); // accedés a /api/users
 
 
 

@@ -18,7 +18,7 @@ const deleteCliente = async (req, res) => {
 
 const createCliente = async (req, res) => {
   try {
-    const {nombre_cliente,rut_cliente,estatus} = req.body;
+    const {nombre_cliente,rut_cliente,} = req.body;
 
     /* que no se te olvide agregar cartera_comercial_asig */
     const { rows } = await pool.query(`
@@ -28,7 +28,7 @@ const createCliente = async (req, res) => {
     $1, $2, $3) 
     RETURNING *
 `, [
-      nombre_cliente,rut_cliente,estatus
+      nombre_cliente,rut_cliente,"activo"
     ]);
 
     res.status(201).json({ message: 'cliente ingresado' });
@@ -65,7 +65,7 @@ const updateCliente = async (req, res) => {
     };
     // 3. Ejecutar el UPDATE con todos los campos
     const query = `
-      UPDATE proyecto SET
+      UPDATE cliente SET
         nombre_cliente = $1,
         rut_cliente = $2,
         estatus = $3,

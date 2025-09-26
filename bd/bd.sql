@@ -1,10 +1,22 @@
+-- Crear tabla Cliente_contacto
+CREATE TABLE Cliente_contacto (
+    id_cliente_contacto SERIAL PRIMARY KEY,
+    nombre_cliente_contacto VARCHAR(255) NOT NULL,
+    cargo_cliente_contacto VARCHAR(255) NOT NULL,
+    correo_corporativo_cliente_contacto VARCHAR(255) NOT NULL,
+    correo_personal_cliente_contacto VARCHAR(255) NOT NULL,
+    telefono_personal_cliente_contacto INTEGER NOT NULL,
+    telefono_corporativo_cliente_contacto INTEGER NOT NULL
+);
+
 -- Crear tabla Cliente
 CREATE TABLE Cliente (
     id_cliente SERIAL PRIMARY KEY,
     nombre_cliente VARCHAR(255) NOT NULL,
-    cargo_contacto VARCHAR(255) NOT NULL,
-    correo_contacto VARCHAR(255) NOT NULL,
-    telefono_contacto INTEGER NOT NULL
+    rut_cliente VARCHAR(25) NOT NULL,
+    estatus VARCHAR(25) NOT NULL CHECK(
+        estatus in ('activo','inactivo')
+    )
 );
 
 -- Crear tabla Usuario
@@ -76,7 +88,8 @@ CREATE TABLE Proyecto (
     info VARCHAR(2) NOT NULL CHECK (
         info IN ('si','no')
     ),
-    cliente INTEGER REFERENCES Cliente(id_cliente) ON DELETE SET NULL,
+    cliente INTEGER REFERENCES Cliente_contacto(id_cliente_contacto) ON DELETE SET NULL,
+
     monto_UF INTEGER,
     monto_clp INTEGER,
     tipo_Proyecto VARCHAR(100),
@@ -115,7 +128,7 @@ CREATE TABLE Proyecto (
     fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     responsable_comercial INTEGER REFERENCES Usuario(id_usuario) ON DELETE SET NULL,
     modificacion_por INTEGER REFERENCES Usuario(id_usuario) ON DELETE SET NULL,
-    gte_proyecto_contacto INTEGER REFERENCES Contactos(id_contacto) ON DELETE SET NULL,
-    adm_obra INTEGER REFERENCES Contactos(id_contacto) ON DELETE SET NULL,
+    gte_proyecto_contacto INTEGER REFERENCES Cliente_contacto(id_cliente_contacto) ON DELETE SET NULL,
+    adm_obra INTEGER REFERENCES  Cliente_contacto(id_cliente_contacto) ON DELETE SET NULL,
     estado_proyecto INTEGER
 );

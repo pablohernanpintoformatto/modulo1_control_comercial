@@ -13,8 +13,14 @@ app.use(express.json());
 
 const usersRoutes = require('./routes/usuario.routes.js');
 const dataProyecto = require('./routes/dataProyecto.routes.js')
-app.use('/api', usersRoutes); // accedés a /api/users
-app.use('/api', dataProyecto); // accedés a /api/users
+const clienteRoutes = require('./routes/clientes.routes.js')
+const clientesContactos = require('./routes/clientesContactos.routes.js')
+
+
+app.use('/api', usersRoutes); 
+app.use('/api', dataProyecto); 
+app.use('/api', clienteRoutes);
+app.use('/api', clientesContactos);
 
 
 
